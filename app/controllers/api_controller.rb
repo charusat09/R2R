@@ -1,5 +1,7 @@
 class ApiController < ApplicationController
 
+ include HTTParty
+
 	def process_ride
        	scode=get_pnr_status()
         puts scode 
@@ -12,6 +14,15 @@ class ApiController < ApplicationController
      @var=q["products"][0]["product_id"]
      puts "#{@var}"
 p q
+
+
+        base_uri = 'https://sandbox-api.uber.com/v1/requests'
+         options ={ query: {product_id: @var, start_latitude: 19.1068, start_longitude: 72.8989, end_latitude: 19.1197, end_longitude: 72.9051}}
+
+
+	response = HTTParty.get(base_uri, options)
+          puts "--------uber request------------"
+	puts response.body, response.code, response.message, response.headers.inspect
        end
 
 #Replace hardcoded PNR by pnr provided in request
