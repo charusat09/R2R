@@ -1,13 +1,9 @@
 class ApiController < ApplicationController
 
-	def uber_ride
-	client = Uber::Client.new do |config|
-		config.client_id     = "fV8iuY8XKX7yEFFQcBiyGiz2V6S7aurj"
-		config.client_secret = "UJOd_m9qWmNYMbtkWYV0__OAMjqPcMaqA1Regggn"
-		config.bearer_token  = "9dpffwlPqe6odv07YEiYzfBUvMC7DYyUWH6xfsMu"
-	end
-
-	client.trip_request(product_id: product_id, start_latitude: start_lat, start_longitude: start_lng, end_latitude: end_lat, end_longitude: end_lng)
-	end
-
+        def uber_ride
+		 s = Net::HTTP.get_response(URI.parse("https://sandbox-api.uber.com/v1/products?latitude=19.0728300&longitude=72.8826100&access_token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZXMiOlsicHJvZmlsZSIsImhpc3RvcnkiLCJyZXF1ZXN0Il0sInN1YiI6ImZiOGUwYTlkLTg5ZmMtNGEwMi1hOTlmLWNjZGQ2MjNkZWRiNCIsImlzcyI6InViZXItdXMxIiwianRpIjoiYzVlYThiZjktNzYyYy00YTQ0LTllYmMtNDgzOGFhYTc3ODY4IiwiZXhwIjoxNDcwMjE1Njg5LCJpYXQiOjE0Njc2MjM2ODgsInVhY3QiOiJoaVVWVWg2NWZ2NzMwUHFFYnl1b0ltRUR1cmNoVEYiLCJuYmYiOjE0Njc2MjM1OTgsImF1ZCI6Ik5sckFncWRMT0dkZUJ1X0o5aE5ETmQ4UEQ5Q3Vkc2dDIn0.Cc2Mp8sIvN09_p8HsXFnbg6ebOwO5djO5JudlaAGbdbpRAu0DVLdCWw10NIyAg0Z-qgyySRl5YcU_2q_CMPOFYEjp6ttDyIL0ZAAc1borB2ocg-xjBTsr-px9WXW9MfGxtCpvTUTbzEhvg1HTHn9tTKadZ2Z7G0lyUCeyLzZ1OrqhUgDpeF9mevUjbob22YHk4-92OKnoqDqunG4khDYV8G_EnmdScxkjWm5Ut46M4o84bbW_Q2FpYXXEUXdtQ6GuQg0KvvvOEAdn4dft7-hyltRiB1khHjkmWxGwdJfj3c2EkENX50cQ1bd9uZ3L7wH7P6HiEsuMFO2P-ivmFVQPg")).body
+     a = Hash.from_xml(s).to_json
+     q = JSON.parse(s)
+puts "Hellooo"
+       end
 end
