@@ -1,5 +1,7 @@
 class ApiController < ApplicationController
 
+   include HTTParty
+
 
 	def process_ride
        	scode=get_pnr_status()
@@ -12,21 +14,27 @@ class ApiController < ApplicationController
 	end
 
         def uber_ride
-		 s = Net::HTTP.get_response(URI.parse("https://sandbox-api.uber.com/v1/products?latitude=19.0728300&longitude=72.8826100&access_token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZXMiOlsicHJvZmlsZSIsImhpc3RvcnkiLCJyZXF1ZXN0Il0sInN1YiI6ImZiOGUwYTlkLTg5ZmMtNGEwMi1hOTlmLWNjZGQ2MjNkZWRiNCIsImlzcyI6InViZXItdXMxIiwianRpIjoiYzVlYThiZjktNzYyYy00YTQ0LTllYmMtNDgzOGFhYTc3ODY4IiwiZXhwIjoxNDcwMjE1Njg5LCJpYXQiOjE0Njc2MjM2ODgsInVhY3QiOiJoaVVWVWg2NWZ2NzMwUHFFYnl1b0ltRUR1cmNoVEYiLCJuYmYiOjE0Njc2MjM1OTgsImF1ZCI6Ik5sckFncWRMT0dkZUJ1X0o5aE5ETmQ4UEQ5Q3Vkc2dDIn0.Cc2Mp8sIvN09_p8HsXFnbg6ebOwO5djO5JudlaAGbdbpRAu0DVLdCWw10NIyAg0Z-qgyySRl5YcU_2q_CMPOFYEjp6ttDyIL0ZAAc1borB2ocg-xjBTsr-px9WXW9MfGxtCpvTUTbzEhvg1HTHn9tTKadZ2Z7G0lyUCeyLzZ1OrqhUgDpeF9mevUjbob22YHk4-92OKnoqDqunG4khDYV8G_EnmdScxkjWm5Ut46M4o84bbW_Q2FpYXXEUXdtQ6GuQg0KvvvOEAdn4dft7-hyltRiB1khHjkmWxGwdJfj3c2EkENX50cQ1bd9uZ3L7wH7P6HiEsuMFO2P-ivmFVQPg")).body
-     q = JSON.parse(s)
-     @var=q["products"][0]["product_id"]
-     puts "#{@var}"
-p q
+         access_token = get_access_token
+        base_uri = "https://sandbox-api.uber.com/v1/requests?access_token=#{access_token}"
+	query = {
+	product_id: "d5c3d5fe-883f-4105-99e4-fcb9ae46a988",
+	start_latitude: 19.1068,
+	start_longitude: 72.8989,
+	end_latitude: 19.1197,
+	end_longitude: 72.9051
+}.to_json
 
+     headers = {'Content-Type' => 'application/json'}
 
-        base_uri = 'https://sandbox-api.uber.com/v1/requests'
-         options ={ query: {product_id: @var, start_latitude: 19.1068, start_longitude: 72.8989, end_latitude: 19.1197, end_longitude: 72.9051}}
-
-
-	response = HTTParty.get(base_uri, options)
+response = HTTParty.post(
+  base_uri,
+  :body => query,
+  :headers => headers
+).body
           puts "--------uber request------------"
-	puts response.body, response.code, response.message, response.headers.inspect
-       end
+	puts response.inspect
+
+end
 
 #Replace hardcoded PNR by pnr provided in request
 	def get_pnr_status(pnr="4220338987")
@@ -61,4 +69,9 @@ p q
 
 	def db_store
 	end
+	private
+		def get_access_token
+			 "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZXMiOlsicHJvZmlsZSIsImhpc3RvcnkiLCJyZXF1ZXN0Il0sInN1YiI6ImZiOGUwYTlkLTg5ZmMtNGEwMi1hOTlmLWNjZGQ2MjNkZWRiNCIsImlzcyI6InViZXItdXMxIiwianRpIjoiMWI0MGM2ZjMtNjQzYi00MDY1LWI5MGUtNjRiNmNiYmMzNTk2IiwiZXhwIjoxNDcwMzA2OTY1LCJpYXQiOjE0Njc3MTQ5NjUsInVhY3QiOiJIUUZMTEVTNjhZQzVkcG9vTEZkVW9MbkJIQUZTc1oiLCJuYmYiOjE0Njc3MTQ4NzUsImF1ZCI6Ik5sckFncWRMT0dkZUJ1X0o5aE5ETmQ4UEQ5Q3Vkc2dDIn0.gxzHZbZvhLmeDl0_jnSQ_FVwAZl9-QY7srjNNZdxvnRK5VWNuJu91T3ayNRqW14jlkSXbgM0apH5yfVyQxfLTOoIwsh8zpYXrHs2NGW89tOd7SMmHU8xxo3cHfZjppS5kegVT0BiOam4aj9yY3b_oWN6FgoxSg9kyzaqJViRAo9fKpiyhAHTIif_Pxc0iq0mM3j2CqEwWezbqroacBWG86ovgLiF5jMKkAZCnHcBJ1q8Qk4iQMBSe6Mjo93y-THLhTdu5TFu0kgLJ1bpzZ6GdQmY71eVc59i98R4Sfue4vnclmt75hvfLu2opaI7nfAast85ZDN_G-gx6air1pyzJw"
+		end
+
 end
