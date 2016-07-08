@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<style>
+@font-face {
+	font-family: 'YanoneKaffeesatzRegular';
+	src: url('./fonts/yanonekaffeesatz-regular-webfont.eot');
+	src: url('./fonts/yanonekaffeesatz-regular-webfont.eot?#iefix') format('embedded-opentype'),
+	url('./fonts/yanonekaffeesatz-regular-webfont.woff') format('woff'),
+	url('./fonts/yanonekaffeesatz-regular-webfont.ttf') format('truetype'),
+	url('./fonts/yanonekaffeesatz-regular-webfont.svg#YanoneKaffeesatzRegular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+</style>
+
+	<div id="wrap">
+		<h1>Ride2Rail!</h1>
+		<div id='form_wrap'>
+
+		<p id="formstatus"></p>
+			<%= form_tag "/api/get_pnr_status" do %>
+				<label for="email">Kindly enter your PNR number : </label><br/><br/>
+				<%= text_field_tag "pnr" %>
+				<%= submit_tag "Save" ,  :action => 'get_pnr_status'  %>
+				 <p id="formstatus"> Status : <%= @status %> </p>
+               <div> you want to book an uber?</div>
+              <div><%= link_to "Yes", api_address_path %></div>
+
+			<% end %>
+	</div>
+	</div>
