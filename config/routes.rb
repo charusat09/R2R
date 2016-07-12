@@ -7,6 +7,7 @@ Rails.application.routes.draw do
         match 'api/get_station_coordinates' => 'api#get_station_coordinates', :via => [:get]
         match 'api/process_ride' => 'api#process_ride', :via => [:get,:post]
 	match 'api/process_ride' => 'api#process_ride', :via => [:get,:post]
+        match 'api/address' => 'api#address', :via => [:get,:post]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
