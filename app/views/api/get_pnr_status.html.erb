@@ -20,10 +20,10 @@
 			<%= form_tag "/api/get_pnr_status" do %>
 				<label for="email">Kindly enter your PNR number : </label><br/><br/>
 				<%= text_field_tag "pnr" %>
-				<%= submit_tag "Save" ,  :action => 'get_pnr_status'  %>
+				<%= submit_tag "Check" ,  :action => 'get_pnr_status'  %>
 		<% if @status.present? %><p> Status : <%= @status %> </p>	
-	       <% if  @status == "CNF" %><p>Do you want to book an uber?</p>
-	       <p><%= link_to "Yes", api_address_path %><% end %><% end %>
+	       <% if  @status == "CNF" %><p>Do you want to book an uber?</p><%= @scode %>
+	       <p><%= link_to "Yes", api_address_path(pnr: @pnr, scode: @scode) %><% end %><% end %>
 	                 <% end %>	
 	<div>
 	<div>

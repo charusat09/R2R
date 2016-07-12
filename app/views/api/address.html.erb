@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8" />
-	<title>Page 2</title>
 <style>
 @font-face {
 	font-family: 'YanoneKaffeesatzRegular';
@@ -16,20 +12,37 @@
 }
 </style>
 
-</head>
 
-<body>
 	<div id="wrap">
 		<h1>Ride2Rail!</h1>
 		<div id='form_wrap'>
-			<form id="contact-form" action="javascript:alert('success!');">
-
-		<p id="formstatus"></p>
+                 <%= form_tag "/api/address" do %>
+			<p id="formstatus"></p>
+				<label for="email">Kindly enter your name : </label><br/><br/>
+				<%= text_field_tag :name %>
+				<label for="email">Kindly enter your email : </label><br/><br/>
+				<%= text_field_tag :email %>
 				<label for="email">Kindly enter pick up address : </label><br/><br/>
-				<textarea  name="message" value="Your Message" id="message" ></textarea>
-				<input type="submit" name ="submit" value="Confirm booking for this location!" />
-			</form>
+				<%= text_area_tag :address %>
+				<%= hidden_field_tag :pnr, params[:pnr] %>
+				<%= hidden_field_tag :scode, params[:scode] %>
+				<%= submit_tag "Submit" ,  :action => 'address'  %>
+	   	  <% end %>
 		</div>
 	</div>
-</body>
-</html>
+
+<script type="text/javascript">
+
+	$('form').submit(function () {
+    var name = $.trim($('#address').val());
+    if (name  === '') {
+        alert('Address cannot be empty !');
+        return false;
+    }
+});
+
+</script>
+
+
+
+
