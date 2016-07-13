@@ -26,6 +26,8 @@
 				<%= text_area_tag :address %>
 				<%= hidden_field_tag :pnr, params[:pnr] %>
 				<%= hidden_field_tag :scode, params[:scode] %>
+				<%= hidden_field_tag :train_no, params[:tn] %>
+				<%= hidden_field_tag :doj, params[:jrny] %>
 				<%= submit_tag "Submit" ,  :action => 'address'  %>
 	   	  <% end %>
 		</div>
