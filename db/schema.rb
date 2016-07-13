@@ -14,15 +14,15 @@
 ActiveRecord::Schema.define(version: 20160712105159) do
 
   create_table "api_details", force: :cascade do |t|
-    t.string  "user_id"
-    t.integer "pnr_number"
-    t.string  "travel_date"
-    t.string  "station_lat"
-    t.string  "station_long"
-    t.text    "address"
-    t.string  "location_lat"
-    t.string  "location_long"
-    t.string  "booking_time"
+    t.string "user_id"
+    t.string "pnr_number"
+    t.string "travel_date"
+    t.string "station_lat"
+    t.string "station_long"
+    t.text   "address"
+    t.string "location_lat"
+    t.string "location_long"
+    t.string "booking_time"
   end
 
   create_table "users", force: :cascade do |t|

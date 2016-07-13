@@ -23,7 +23,7 @@
 				<%= submit_tag "Check" ,  :action => 'get_pnr_status'  %>
 		<% if @status.present? %><p> Status : <%= @status %> </p>	
 	       <% if  @status == "CNF" %><p>Do you want to book an uber?</p><%= @scode %>
-	       <p><%= link_to "Yes", api_address_path(pnr: @pnr, scode: @scode) %><% end %><% end %>
+	       <p><%= link_to "Yes", api_address_path(pnr: @pnr, scode: @scode, jrny: @doj, tn: @train_no) %><% end %><% end %>
 	                 <% end %>	
 	<div>
 	<div>
