@@ -54,3 +54,4 @@ group :development do
 end
 gem 'uber-ruby', require: 'uber'
 gem 'whenever', :require => false
+gem "figaro"

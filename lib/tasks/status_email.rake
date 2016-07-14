@@ -9,11 +9,11 @@ namespace :email do
       access_token = ENV["ACCESS_TOKEN"]
       base_uri = "https://sandbox-api.uber.com/v1/requests?access_token=#{access_token}"
       query = {
-	product_id: "d5c3d5fe-883f-4105-99e4-fcb9ae46a988",
-	start_latitude: 19.1068,
-	start_longitude: 72.8989,
-	end_latitude: 19.1197,
-	end_longitude: 72.9051
+    	product_id: ENV["PRODUCT_ID"],
+    	start_latitude: 19.1068,
+    	start_longitude: 72.8989,
+    	end_latitude: 19.1197,
+    	end_longitude: 72.9051
         }.to_json
 
       headers = {'Content-Type' => 'application/json'}
