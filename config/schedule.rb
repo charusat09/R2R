@@ -19,7 +19,7 @@
 
 # Learn more: http://github.com/javan/whenever
 set :output, 'log/whenever.log'
+
 every 1.minutes  do
-	puts "I am calling"
- command "echo 'one' && echo 'two'"
+  rake 'email:send_email'
 end
