@@ -18,11 +18,11 @@
 		<div id='form_wrap'>
                  <%= form_tag "/api/address" do %>
 			<p id="formstatus"></p>
-				<label for="email">Kindly enter your name : </label><br/><br/>
+				<label for="name">Kindly enter your name : </label><br/><br/>
 				<%= text_field_tag :name %>
 				<label for="email">Kindly enter your email : </label><br/><br/>
 				<%= text_field_tag :email %>
-				<label for="email">Kindly enter pick up address : </label><br/><br/>
+				<label for="address">Kindly enter pick up address : </label><br/><br/>
 				<%= text_area_tag :address %>
 				<%= hidden_field_tag :pnr, params[:pnr] %>
 				<%= hidden_field_tag :scode, params[:scode] %>
@@ -36,10 +36,26 @@
 <script type="text/javascript">
 
 	$('form').submit(function () {
-    var name = $.trim($('#address').val());
-    if (name  === '') {
-        alert('Address cannot be empty !');
+    var address = $.trim($('#address').val());
+    var name = $.trim($('#name').val());
+    var email = $.trim($('#email').val());
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (email === '' || name === '' || address === '' ){
+	 alert('please fill up all the fields !');
         return false;
+
+    }
+    else{
+    
+	if (re.test(email))
+	{
+		return (true)  	
+	}
+	else {
+
+ 		alert("You have entered an invalid email address!")  
+    		return (false)
+	} 
     }
 });
 

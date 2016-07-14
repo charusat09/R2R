@@ -21,9 +21,40 @@
 				<label for="email">Kindly enter your PNR number : </label><br/><br/>
 				<%= text_field_tag "pnr" %>
 				<%= submit_tag "Check" ,  :action => 'get_pnr_status'  %>
-		<% if @status.present? %><p> Status : <%= @status %> </p>	
-	       <% if  @status == "CNF" %><p>Do you want to book an uber?</p><%= @scode %>
+		<% if @status.present? %><p><u>PNR DETAILS:</u></p><br /><p> Current Status : <%= @status %>  </p>
+		<p>Booking Status: <%= @q["passengers"][0]["booking_status"] %></p>
+		<p>Boarding Point: <%= @q["boarding_point"]["name"] %></p>
+		<p> Class: <%= @q["class"] %>	</p>
+	       <% if  @status == "CNF" %><p>Do you want to book an uber?</p>
 	       <p><%= link_to "Yes", api_address_path(pnr: @pnr, scode: @scode, jrny: @doj, tn: @train_no) %><% end %><% end %>
-	                 <% end %>	
-	<div>
-	<div>
+		<p style="color:red"><% if @q.present? && @q["error"] == true %>Sorry the pnr no. you have entered is invalid!<% end %></p>	
+                 <% end %>	
+	</div>
+	</div>
+
+<script type="text/javascript">
+
+        $('form').submit(function () {
+    var name = $.trim($('#pnr').val());
+	//alert(name.length)
+    if (name  === '') {
+        alert('Please enter something !');
+        return false;
+    }
+    else{
+
+	if  (name.length != 10 || isNAN(name))
+
+	{
+	
+		alert('Please enter a valid pnr!');
+        	return false;
+
+	}
+
+    }
+	
+});
+
+</script>
+
